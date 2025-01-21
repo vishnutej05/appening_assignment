@@ -75,7 +75,6 @@ Authorization: Bearer your-token-here
 ## 📚 API Documentation
 
 Full API documentation is available:
-- [HTML Documentation](link-to-your-documentation)
 - [Postman Collection](https://www.postman.com/satellite-specialist-9716583/workspace/appening-assignment-testing-collection/collection/33771149-b8cdd380-f5af-4df8-ad0c-f5f67ab9774c?action=share&source=copy-link&creator=33771149)
 
 ### Key Endpoints
@@ -113,34 +112,4 @@ Full API documentation is available:
    - View blogs
    - Create comments
    - Manage own comments
-
-## ⚙️ Request Examples
-
-### Register User
-```json
-POST /api/auth/register
-{
-    "email": "user@example.com",
-    "password": "password123",
-    "role": "admin"
-}
-```
-
-### Create Blog
-```json
-POST /api/blogs
-{
-    "title": "Blog Title",
-    "content": "Blog Content"
-}
-```
-
-### Create Comment
-```json
-POST /api/comments
-{
-    "content": "Comment text here",
-    "blog": "blog-id-here"
-}
-```
 
