@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog API Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .endpoint {
+            background-color: #f5f5f5;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .json {
+            background-color: #272822;
+            color: #f8f8f2;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .role {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        .admin {
+            background-color: #ff6b6b;
+            color: white;
+        }
+        .editor {
+            background-color: #4ecdc4;
+            color: white;
+        }
+        .user {
+            background-color: #45b7d1;
+            color: white;
+        }
+        .method {
+            font-weight: bold;
+            color: #333;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .note {
+            border-left: 4px solid #45b7d1;
+            padding-left: 15px;
+            margin: 15px 0;
+            color: #666;
+        }
+        .postman-link {
+            background-color: #FF6C37;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .postman-link:hover {
+            background-color: #E65C2E;
+        }
+    </style>
+</head>
+<body>
+    <h1>Blog API Documentation</h1>
+    
+    <div class="note">
+        <p><strong>Important:</strong> Follow these steps in order:</p>
+        <ol>
+            <li>Register an account (as admin/editor/user)</li>
+            <li>Verify email using the link sent to your email</li>
+            <li>Login to get your access token</li>
+            <li>Use the token in Authorization header for protected routes</li>
+        </ol>
+    </div>
+
+    <a href="https://www.postman.com/satellite-specialist-9716583/workspace/appening-assignment-testing-collection/collection/33771149-b8cdd380-f5af-4df8-ad0c-f5f67ab9774c?action=share&source=copy-link&creator=33771149" class="postman-link" target="_blank">
+        Try these APIs in my Postman Collection
+    </a>
+
+    <h2>Authentication</h2>
+    
+    <div class="endpoint">
+        <h3><span class="method">POST</span> /api/auth/register</h3>
+        <p>Register a new user</p>
+        <div class="json">
+            <pre>
+{
+    "email": "user@example.com",
+    "password": "password123",
+    "role": "admin" // or "editor" or "user"
+}</pre>
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <h3><span class="method">GET</span> /api/auth/verify-email/:token</h3>
+        <p>Verify email address using the token received in email</p>
+        <p>Example: GET /api/auth/verify-email/your-token-here</p>
+    </div>
+
+    <div class="endpoint">
+        <h3><span class="method">POST</span> /api/auth/login</h3>
+        <p>Login to get access token</p>
+        <div class="json">
+            <pre>
+{
+    "email": "user@example.com",
+    "password": "password123"
+}</pre>
+        </div>
+    </div>
+
+    <h2>Blogs</h2>
+
+    <div class="endpoint">
+        <h3><span class="method">GET</span> /api/blogs</h3>
+        <p>Get all blogs <span class="role user">All Users</span></p>
+    </div>
+
+    <div class="endpoint">
+        <h3><span class="method">POST</span> /api/blogs <span class="role admin">Admin Only</span></h3>
+        <p>Create a new blog</p>
+        <div class="json">
+            <pre>
+{
+    "title": "Blog Title",
+    "content": "Blog Content"
+}</pre>
+        </div>
+        <p>Header required: <code>Authorization: Bearer your-token-here</code></p>
+    </div>
+
+    <div class="endpoint">
+        <h3><span class="method">PUT</span> /api/blogs/:id <span class="role admin">Admin</span> <span class="role editor">Editor</span></h3>
+        <p>Edit a blog</p>
+        <p>Note: Editors can only edit blogs assigned to them</p>
+        <div class="json">
+            <pre>
+{
+    "title": "Updated Title",
+    "content": "Updated Content"
+}</pre>
+        </div>
+        <p>Header required: <code>Authorization: Bearer your-token-here</code></p>
+    </div>
+
+    <div class="endpoint">
+        <h3><span class="method">POST</span> /api/blogs/assign-editor <span class="role admin">Admin Only</span></h3>
+        <p>Assign an editor to a blog</p>
+        <div class="json">
+            <pre>
+{
+    "blogId": "blog-id-here",
+    "editorId": "editor-user-id-here"
+}</pre>
+        </div>
+        <p>Header required: <code>Authorization: Bearer your-token-here</code></p>
+    </div>
+
+    <h2>Comments</h2>
+
+    <div class="endpoint">
+        <h3><span class="method">POST</span> /api/comments <span class="role user">All Users</span></h3>
+        <p>Create a comment on a blog</p>
+        <div class="json">
+            <pre>
+{
+    "content": "Comment text here",
+    "blog": "blog-id-here"
+}</pre>
+        </div>
+        <p>Header required: <code>Authorization: Bearer your-token-here</code></p>
+    </div>
+
+    <div class="endpoint">
+        <h3><span class="method">DELETE</span> /api/comments/:id <span class="role user">Owner Only</span></h3>
+        <p>Delete your own comment</p>
+        <p>Header required: <code>Authorization: Bearer your-token-here</code></p>
+    </div>
+
+    <div class="endpoint">
+        <h3><span class="method">GET</span> /api/comments/blog/:blogId <span class="role user">All Users</span></h3>
+        <p>Get all comments for a specific blog</p>
+        <p>Example: GET /api/comments/blog/123456</p>
+    </div>
+
+    <div class="note">
+        <h3>Testing Flow:</h3>
+        <ol>
+            <li>Register three accounts: admin, editor, and regular user</li>
+            <li>Verify each email</li>
+            <li>Login as admin and create a blog</li>
+            <li>Assign the blog to the editor account</li>
+            <li>Try editing the blog as editor (should work)</li>
+            <li>Try editing a different blog as editor (should fail)</li>
+            <li>Create comments as regular user</li>
+            <li>Try to delete own comments (should work)</li>
+            <li>Try to delete others' comments (should fail)</li>
+        </ol>
+    </div>
+</body>
+</html>
