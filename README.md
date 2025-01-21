@@ -21,12 +21,6 @@ A RESTful API for managing a blog platform with user authentication, role-based 
   - Delete own comments
   - View all comments for a specific blog
 
-## 📋 Prerequisites
-
-- Node.js
-- MongoDB
-- Email service provider (for verification emails)
-
 ## 🛠️ Installation
 
 1. Clone the repository:
