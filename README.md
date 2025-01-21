@@ -144,8 +144,3 @@ POST /api/comments
 }
 ```
 
-## 📞 Contact
-
-Your Name - [your-email@example.com](mailto:your-email@example.com)
-
-Project Link: [https://github.com/yourusername/blog-api](https://github.com/yourusername/blog-api)
